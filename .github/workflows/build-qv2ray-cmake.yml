@@ -194,4 +194,4 @@ jobs:
       - name: Release
         run: |
           latest_tag=$(curl -s https://api.github.com/repos/MatsuriDayo/nekoray/tags | jq -r '.[0].name')
-          ./ghr -delete -t "${{ secrets.NEKORAY_WORKFLOW_TOKEN }}" -n "$latest_tag" -b "Built on the original repository." "$latest_tag" deployment
+          ./ghr -delete -t "${{ secrets.GITHUB_TOKEN }}" -n "$latest_tag" -b "Built on the original repository." "$latest_tag" deployment
