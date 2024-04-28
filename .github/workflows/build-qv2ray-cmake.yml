@@ -33,9 +33,9 @@ jobs:
         run: |
           extraCode="\n        } else { \n            direct_ip = \"\";\n            direct_domain = \"\";\n            proxy_ip = \"\";\n            proxy_domain = \"\";\n            block_ip = \"\";\n            block_domain = \"\";"
           sed -i 's/bool remember_enable = false;/bool remember_enable = true;/' main/NekoGui_DataStore.hpp &&
-          sed -i 's/QString direct_ip;/QString direct_ip = "geoip:cn\\ngeoip:private";/' main/NekoGui_DataStore.hpp &&
-          sed -i 's/QString direct_domain;/QString direct_domain = "geosite:cn";/' main/NekoGui_DataStore.hpp &&
-          sed -i 's/int language = 0;/int language = 2;/' main/NekoGui_DataStore.hpp &&
+          sed -i 's/QString direct_ip;/QString direct_ip = "geoip:ir\\ngeoip:private";/' main/NekoGui_DataStore.hpp &&
+          sed -i 's/QString direct_domain;/QString direct_domain = "geosite:ir";/' main/NekoGui_DataStore.hpp &&
+          sed -i 's/int language = 0;/int language = 0;/' main/NekoGui_DataStore.hpp &&
           sed -i 's/int inbound_http_port = -2081;/int inbound_http_port = 2081;/' main/NekoGui_DataStore.hpp &&
           sed -i 's/block_domain =/block_domain = "";/' main/NekoGui.cpp &&
           sed -i '/geosite:category-ads-all/d' main/NekoGui.cpp &&
@@ -94,8 +94,8 @@ jobs:
       - name: Modify File
         run: |
           if (Test-Path "main\NekoGui_DataStore.hpp") { $content = Get-Content "main\NekoGui_DataStore.hpp" -Raw; if ($content -match "bool remember_enable = false;") { $content = $content -replace "bool remember_enable = false;", "bool remember_enable = true;"; $content | Set-Content "main\NekoGui_DataStore.hpp" -Force } }
-          if (Test-Path "main\NekoGui_DataStore.hpp") { $content = Get-Content "main\NekoGui_DataStore.hpp" -Raw; if ($content -match 'QString direct_ip;\s+QString direct_domain;') { $content = $content -replace 'QString direct_ip;\s+QString direct_domain;', 'QString direct_ip = "geoip:cn\ngeoip:private"; QString direct_domain = "geosite:cn";' | Set-Content "main\NekoGui_DataStore.hpp" -Force } }
-          if (Test-Path "main\NekoGui_DataStore.hpp") { $content = Get-Content "main\NekoGui_DataStore.hpp" -Raw; if ($content -match "int language = 0;") { $content = $content -replace "int language = 0;", "int language = 2;"; $content | Set-Content "main\NekoGui_DataStore.hpp" -Force } }
+          if (Test-Path "main\NekoGui_DataStore.hpp") { $content = Get-Content "main\NekoGui_DataStore.hpp" -Raw; if ($content -match 'QString direct_ip;\s+QString direct_domain;') { $content = $content -replace 'QString direct_ip;\s+QString direct_domain;', 'QString direct_ip = "geoip:ir\ngeoip:private"; QString direct_domain = "geosite:ir";' | Set-Content "main\NekoGui_DataStore.hpp" -Force } }
+          if (Test-Path "main\NekoGui_DataStore.hpp") { $content = Get-Content "main\NekoGui_DataStore.hpp" -Raw; if ($content -match "int language = 0;") { $content = $content -replace "int language = 0;", "int language = 0;"; $content | Set-Content "main\NekoGui_DataStore.hpp" -Force } }
           if (Test-Path "main\NekoGui_DataStore.hpp") { $content = Get-Content "main\NekoGui_DataStore.hpp" -Raw; if ($content -match "int inbound_http_port = -2081;") { $content = $content -replace "int inbound_http_port = -2081;", "int inbound_http_port = 2081;"; $content | Set-Content "main\NekoGui_DataStore.hpp" -Force } }
           if (Test-Path "main\NekoGui.cpp") {$content = Get-Content "main\NekoGui.cpp" -Raw; if ($content -match 'block_domain =') {$content = $content -replace 'block_domain =.*', 'block_domain = "";'; $content = $content -replace '.*geosite:category-ads-all.*\n', ''; $content = $content -replace '.*domain:.*\n', ''; $content | Set-Content "main\NekoGui.cpp" -Force }}
           if (Test-Path "main\NekoGui.cpp") { $lines = Get-Content "main\NekoGui.cpp"; $newLines = @(); $codeToAdd = "        } else {`n            direct_ip = `"`";`n            direct_domain = `"`";`n            proxy_ip = `"`";`n            proxy_domain = `"`";`n            block_ip = `"`";`n            block_domain = `"`";`n"; foreach ($line in $lines) { $newLines += $line; if ($line -match 'block_domain = ""') { $newLines += $codeToAdd } } $newLines | Out-File -FilePath "main\NekoGui.cpp" -Force }
@@ -177,9 +177,9 @@ jobs:
           cp -r public_res/* windows64
           rm -rf public_res *.pdb
           ####
-          mv windows64 nekoray
-          zip -r $version_standalone-windows64.zip nekoray
-          rm -rf nekoray
+          mv windows64 MrLinux
+          zip -r $version_standalone-windows64.zip MrLinux
+          rm -rf MrLinux
       - name: Clean Up
         run: |
           cd deployment
