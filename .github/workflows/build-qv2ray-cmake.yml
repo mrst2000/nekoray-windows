@@ -1,4 +1,4 @@
-name: Nekoray build matrix - cmake (Windows Only)
+name: MrLinux build matrix - cmake (Windows Only)
 
 on:
   schedule:
@@ -26,7 +26,7 @@ jobs:
       - name: Checking out sources
         uses: actions/checkout@v3
         with:
-          repository: mrst2000/nekoray
+          repository: mrst2000/MrLinux
           ref: main
           submodules: recursive
       - name: Modify File
@@ -88,7 +88,7 @@ jobs:
       - name: Checking out sources
         uses: actions/checkout@v3
         with:
-          repository: mrst2000/nekoray
+          repository: mrst2000/MrLinux
           ref: main
           submodules: recursive
       - name: Modify File
